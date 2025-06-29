@@ -74,6 +74,9 @@ const Home = () => {
       {
         isEditing && <FormUpdate product={productEditing} handleCancelEditing={handleCancelEditing} fetchingProducts={fetchingProducts} />
       }
+      <section >
+        <SearchProducts /> {}
+      </section>
       <section className="grid-products">
         {
           products.map((product) => {
@@ -81,7 +84,7 @@ const Home = () => {
               <div key={product._id}>
                 <h2>{product.name}</h2>
                 <p>${product.price}</p>
-                <p className="category-product">{product.category}</p>
+                <span className="category-product">{product.category}</span>
                 {
                   user && <div className="control-product">
                     <button className="btn-update" onClick={() => { handleUpdate(product) }}>Actualizar</button>
