@@ -89,4 +89,20 @@ const updateProduct = async (req: Request, res: Response): Promise<any> => {
   }
 }
 
-export { getAllProducts, createProduct, deleteProduct, updateProduct }
+//Agrego el controlador
+const searchProductsByName = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const { name } = req.query;
+    const products = await Product.find({ name: { $regex: name, $options: 'i' } });
+    res.json({
+      success: true,
+      message: "Productos encontrados",
+      data: products
+    });
+  } catch (error) {
+    const err = error as Error;
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+export { getAllProducts, createProduct, deleteProduct, updateProduct, searchProductsByName };
