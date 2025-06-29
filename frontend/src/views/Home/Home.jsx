@@ -3,6 +3,7 @@ import { Layout } from "../../components/Layout"
 import { Link } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
 import { FormUpdate } from "../../components/FormUpdate"
+import { SearchProducts } from "../../components/SearchProducts"; // Importa el nuevo componente
 
 const Home = () => {
   const [products, setProducts] = useState([])
