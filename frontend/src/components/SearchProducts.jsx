@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
@@ -7,6 +7,18 @@ const SearchProducts = () => {
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
   const { token } = useAuth();
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      if (query) {
+        handleSearch();
+      }
+    }, 500); // Espera 500ms después de que el usuario deje de escribir
+
+    return () => {
+      clearTimeout(timerId); // Limpiar el temporizador si el usuario sigue escribiendo
+    };
+  }, [query]);
 
   const handleSearch = async () => {
     try {
@@ -33,7 +45,6 @@ const SearchProducts = () => {
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Buscar productos..."
       />
-      <button className='btn-search' onClick={handleSearch}>Buscar</button>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
